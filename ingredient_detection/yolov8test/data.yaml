@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 17
+names: ['-', '-kimchi', 'This dataset was exported via roboflow.com on May 29- 2023 at 11-39 AM GMT', 'butter', 'cabbage', 'chickenbreast', 'chilipepper', 'egg', 'garlic', 'greenonion', 'meat', 'milk', 'mushroom', 'onion', 'potato', 'sausage', 'tofu']
+
+roboflow:
+  workspace: ingredientsdetecting
+  project: datasetss-6go9m
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/ingredientsdetecting/datasetss-6go9m/dataset/2
