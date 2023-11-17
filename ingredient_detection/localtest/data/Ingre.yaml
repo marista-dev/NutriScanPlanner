@@ -1,0 +1,19 @@
+names:
+- butter
+- cabbage
+- chilipepper
+- egg
+- garlic
+- greenonion
+- kimchi
+- meat
+- milk
+- mushroom
+- onion
+- potato
+- sausage
+- tofu
+nc: 14
+test: /Users/marista/Desktop/REPO/NutriScanPlanner/ingredient_detection/data/test/
+train: /Users/marista/Desktop/REPO/NutriScanPlanner/ingredient_detection/data/train/
+val: /Users/marista/Desktop/REPO/NutriScanPlanner/ingredient_detection/data/valid/
