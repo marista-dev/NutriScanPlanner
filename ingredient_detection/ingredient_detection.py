@@ -3,7 +3,7 @@ from roboflow import Roboflow
 import PIL.Image as Image
 
 # Roboflow API 키와 프로젝트 설정
-api_key = "glpg6nG8bAL9f2I1sKoP"
+api_key = ""
 rf = Roboflow(api_key=api_key)
 project = rf.workspace().project("ingredients_yolo")
 model = project.version(3).model
@@ -49,8 +49,8 @@ with gr.Blocks() as demo:
         inputs=ingredients_checkbox_group,
         outputs=selection_output
     )
-# demo.launch()
-return demo
-
-# 인터페이스 생성
-ingredient_detection_interface = ingredient_detection_interface()
+demo.launch()
+# return demo
+#
+# # 인터페이스 생성
+# ingredient_detection_interface = ingredient_detection_interface()

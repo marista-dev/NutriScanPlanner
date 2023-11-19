@@ -4,11 +4,11 @@ import deepl
 from openai import OpenAI
 
 # OpenAI 라이브러리에 API 키 설정
-openai.api_key = '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'
-client = OpenAI(api_key='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')
+openai.api_key = ''
+client = OpenAI(api_key='')
 
 # DeepL API 인증 키 설정
-auth_key = "6309462f-ad40-dba2-f27f-e297c462fcd9:fx"  # 여기에 DeepL 인증 키 입력
+auth_key = ""
 translator = deepl.Translator(auth_key)
 
 def translate_text_with_deepl(text, target_language="KO"):
