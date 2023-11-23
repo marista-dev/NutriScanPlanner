@@ -4,8 +4,8 @@ import deepl
 from openai import OpenAI
 
 # OpenAI 라이브러리에 API 키 설정
-openai.api_key = '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'
-client = OpenAI(api_key='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')
+openai.api_key = ''
+client = OpenAI(api_key='')
 
 # DeepL API 인증 키 설정
 auth_key = "6309462f-ad40-dba2-f27f-e297c462fcd9:fx"
@@ -22,22 +22,38 @@ def translate_text_with_deepl(text, target_language="KO"):
 def generate_diet_plan(calories, ingredients, cuisine, dietary_restrictions, allergies, medical_conditions, meals_per_day, cooking_preference):
     # 채팅 형식의 메시지 생성
     messages = [
-        {"role": "system", "content": "You are an assistant capable of creating personalized diet plans."},
-        {"role": "user", "content": f"Create a diet plan with the following requirements:\nCalories: {calories}\nIngredients: {ingredients}\nCuisine: {cuisine}\nDietary Restrictions: {dietary_restrictions}\nAllergies: {allergies}\nMedical Conditions: {medical_conditions}\nMeals per day: {meals_per_day}\nCooking Preference: {cooking_preference}"}
+        {"role": "system",
+         # "content": "Use Markdown formatting to create meal plans. You are a nutrition expert. Your task is to develop meal plans that meet the user's specified dietary needs. Your responses should be detailed, structured, and informative, utilizing Markdown tables to present the meal plan. Make sure to consider the user's calorie goals, preferred ingredients, dietary restrictions, and the number of meals per day. Provide a breakdown of each meal with nutritional information such as calorie content and macronutrients."},
+         "content":"식단 계획을 마크다운 형식으로 작성하세요.당신은 영양 전문가입니다.사용자가 지정한 식단 요구 사항을 충족시키는 식단 계획을 개발하는 것이 당신의 임무입니다.답변은 상세하고 구조화되며 유익해야 하며,식단 계획을 제시하는 데 마크다운 표를 사용해야 합니다.사용자의 칼로리 목표, 선호 재료, 식이 제한, 하루 식사 횟수를 고려하세요.각 식사에 대한 분석을 제공하며, 칼로리 함량 및 주요영양소와 같은 영양 정보를 포함시키세요."},
+        {"role": "user", "content": f"Create a diet plan with the following requirements:\n{calories}: Your target calorie count for the day.\n{ingredients}: The ingredients that make up your diet (we'll use the best we can, but you're welcome to make other suggestions)\n{cuisine}: Your preferred food style\n{dietary_restrictions}: Food groups you want to limit (dietary restrictions)\n{allergies}: Allergies and intolerances\n{medical_conditions}: Diseases or medical conditions you suffer from.\n{meals_per_day}: Number of meals you want to eat per day\n{cooking_preference}: Preferred cooking time."},
+        {"role": "assistant", "content": f"""
+                키와 체중을 고려하여 열량을 조절하고, 단백질 섭취량을 100~120g으로 맞추기 위해 식단을 조절하겠습니다. 아래는 조정된 식단의 예시입니다. 실제 식단의 세부 사항은 각 음식의 크기, 조리 방법에 따라 달라질 수 있습니다.
+                |식사    |음식    |양    |열량 (kcal) |
+                |----|---|---|----|
+                아침 식사|스크램블 에그와 야채    |2개, 야채 추가|300|18|
+
+                **합계**
+
+                - 열량: 약 2200 kcal
+                - 단백질: 100~120g (변동 가능)
+                """
+         },
+        # 추가 사용자 및 어시스턴트 메시지가 필요한 경우 여기에 포함시킵니다.
     ]
 
     # GPT API 호출
     completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4-1106-preview",
         messages=messages
     )
 
     # 결과를 마크다운 형식으로 변환
     diet_plan = completion.choices[0].message.content
-    translated_diet_plan = translate_text_with_deepl(diet_plan, "KO")
-    markdown_format = f"### 생성된 식단 계획 (Translated)\n\n{translated_diet_plan}"
+    # translated_diet_plan = translate_text_with_deepl(diet_plan, "KO")
+    # markdown_format = f"# 생성된 식단 계획\n\n{translated_diet_plan}"
+    # markdown_format = f"# 생성된 식단 계획\n\n{diet_plan}"
 
-    return markdown_format
+    return gr.Markdown(value = diet_plan)
 
 # Gradio 인터페이스 정의 함수
 def create_diet_planner_interface():

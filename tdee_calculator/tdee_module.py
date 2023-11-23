@@ -2,7 +2,7 @@ import gradio as gr
 
 def calculate_calories_mifflin_st_jeor(gender, age, height, weight, activity_level):
     # Mifflin-St Jeor Equation for BMR
-    if gender == "Male":
+    if gender == "남택":
         bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5
     else:  # Female
         bmr = (10 * weight) + (6.25 * height) - (5 * age) - 151
@@ -24,9 +24,9 @@ def calculate_calories_mifflin_st_jeor(gender, age, height, weight, activity_lev
     maintenance_calories = round(tdee)        # Maintenance
     bulkup_calories = round(tdee + 500)       # Add 500 calories for bulking up
     calories_classes = [
-        ("Weight Loss Calories", f"{weight_loss_calories} kcal - 체중 감량용"),
-        ("Maintenance Calories", f"{maintenance_calories} kcal - 체중 유지용"),
-        ("Bulking Up Calories", f"{bulkup_calories} kcal - 근육 증가용")
+        ("체중 감량용", f"{weight_loss_calories} kcal"),
+        ("체중 유지용", f"{maintenance_calories} kcal"),
+        ("근육 증가용", f"{bulkup_calories} kcal")
     ]
     return gr.CheckboxGroup(choices = calories_classes)
     # return weight_loss_calories, maintenance_calories, bulkup_calories

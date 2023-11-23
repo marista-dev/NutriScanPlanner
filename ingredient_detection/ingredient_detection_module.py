@@ -6,8 +6,9 @@ def create_ingredient_detection_interface():
     # Roboflow API 키와 프로젝트 설정
     api_key = "glpg6nG8bAL9f2I1sKoP"
     rf = Roboflow(api_key=api_key)
-    project = rf.workspace().project("ingredients_yolo")
-    model = project.version(3).model
+    project = rf.workspace().project("foodingredientsdetection-nk3my")
+    model = project.version(10).model
+
 
     # 이미지에 대한 예측을 수행하는 함수
     def predict(image, confidence, overlap):
